@@ -79,16 +79,12 @@ public class magang {
         int ditr = 0, men = 0, ditolak = 0;
 
         for (int i = 0; i < total; i++) {
-            switch (data[i][5].toLowerCase()) {
-                case "diterima":
-                    ditr++;
-                    break;
-                case "menunggu":
-                    men++;
-                    break;
-                case "ditolak":
-                    ditolak++;
-                    break;
+            if (data[i][5].equalsIgnoreCase("diterima")) {
+                ditr++;
+            } else if (data[i][5].equalsIgnoreCase("menunggu")){
+                men++;
+            } else if (data[i][5].equalsIgnoreCase("ditolak")){
+                ditolak++;
             }
         }
 
