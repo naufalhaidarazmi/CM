@@ -97,20 +97,82 @@ public class magang {
         System.out.println("Total Ditolak  : " + ditolak);
     }
 
-    static int menu() {
-        System.out.println("\n=== Sistem Pendaftaran Magang Mahasiswa ===");
-        System.out.println("1. Tambah Data Magang");
-        System.out.println("2. Tampilkan Semua Pendaftar Magang");
-        System.out.println("3. Cari Pendaftar Berdasarkan Program Studi");
-        System.out.println("4. Hitung Jumlah Pendaftar untuk Setiap Status");
-        System.out.println("5. Keluar");
+    static void tampil(String[][] data, int total) {
+        if (total == 0) {
+            System.out.println("Belum ada pendaftar.");
+            return;
+        }
 
-        int choice = 0;
+        System.out.println("\n=== Semua Data Pendaftar Magang ===");
+        System.out.printf("%-4s %-25s %-15s %-10s %-20s %-12s\n",
+                "No", "Nama", "NIM", "Prodi", "Perusahaan", "Status");
+
+        for (int i = 0; i < total; i++) {
+            System.out.printf("%-4d %-25s %-15s %-10s %-20s %-12s\n",
+                    (i + 1),
+                    data[i][0],
+                    data[i][1],
+                    data[i][2],
+                    data[i][3],
+                    data[i][5]);
+        }
+    }
+
+    static void cari(String[][] data, int total) {
+        if (total == 0) {
+            System.out.println("Belum ada data.");
+            return;
+        }
+
+        System.out.print("Masukkan Program Studi yang dicari: ");
+        String prodi = input.nextLine();
+
+        boolean found = false;
+        System.out.println("\n=== Hasil Pencarian ===");
+
+        System.out.printf("%-4s %-25s %-15s %-10s %-20s %-10s %-12s\n",
+                "No", "Nama", "NIM", "Prodi", "Perusahaan", "Semester", "Status");
+
+        for (int i = 0; i < total; i++) {
+            if (data[i][2].equalsIgnoreCase(prodi)) {
+                found = true;
+
+                System.out.printf("%-4d %-25s %-15s %-10s %-20s %-10s %-12s\n",
+                        (i + 1),
+                        data[i][0],
+                        data[i][1],
+                        data[i][2],
+                        data[i][3],
+                        data[i][4],
+                        data[i][5]);
+            }
+        }
+
+        if (!found) {
+            System.out.println("Tidak ada pendaftar dari prodi tersebut.");
+        }
+    }
+
+    static int menu() {
+        int choice;
+
         do {
+            System.out.println("\n=== Sistem Pendaftaran Magang Mahasiswa ===");
+            System.out.println("1. Tambah Data Magang");
+            System.out.println("2. Tampilkan Semua Pendaftar Magang");
+            System.out.println("3. Cari Pendaftar Berdasarkan Program Studi");
+            System.out.println("4. Hitung Jumlah Pendaftar untuk Setiap Status");
+            System.out.println("5. Keluar");
+
             System.out.print("Pilih menu (1-5): ");
             choice = input.nextInt();
             input.nextLine();
-        } while (choice <= 0 || choice > 5);
+
+            if (choice < 1 || choice > 5) {
+                System.out.println("Pilihan tidak valid! Masukkan angka 1-5.");
+            }
+
+        } while (choice < 1 || choice > 5);
 
         return choice;
     }
